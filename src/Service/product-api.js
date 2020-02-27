@@ -27,6 +27,11 @@ class ProductApi {
         const data = query.data;
         return data;
     }
+    async deleteProduct(id){
+        const query = await axios.delete(`${BASE}productos/${id}`);
+        const data = query.data;
+        return data;
+    }
 }
 
 export default ProductApi;

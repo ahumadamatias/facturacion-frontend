@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ProductApi from '../../../Service/product-api'
 
 import './product.css'
+
+const productApi = new ProductApi()
 
 class ClientComponent extends Component {
     constructor(props) {
@@ -9,6 +12,16 @@ class ClientComponent extends Component {
         this.state = {
             routeEdit: '/producto/editar/'+this.props.data.id,
         }
+        this.handleDeleteProduct = this.handleDeleteProduct.bind(this)
+    }
+    handleDeleteProduct(){
+        productApi.deleteProduct(this.props.data.id)
+            .then( res => {
+                console.log(res)
+            })
+            .catch( e => {
+                console.log(e)
+            });
     }
     handleSubmit(e){
         e.preventDefault()
@@ -17,16 +30,16 @@ class ClientComponent extends Component {
         return (
             <div className="content_product" onSubmit={this.handleSubmit}>
                 <div className="content_product-part1">
-                    <div className="data"><p>{this.props.data.codigo}</p></div>
-                    <div className="data"><p>{this.props.data.nombre}</p></div>
-                    <div className="data"><p>{this.props.data.precio}</p></div>
+                    <div><p>{this.props.data.codigo}</p></div>
+                    <div><p>{this.props.data.nombre}</p></div>
+                    <div><p>${this.props.data.precio}</p></div>
                 </div>
                 <div className="content_product-part2">
-                    <div className="data"><p>{this.props.data.descripcion}</p></div>
+                    <div><p>{this.props.data.descripcion}</p></div>
                 </div>
                 <div className="content_product-part3">
                     <div><Link to={this.state.routeEdit}><button className="btn">Editar</button></Link></div>
-                    <div><Link to={this.state.routeDelete}><button className="btn">Borrar</button></Link></div>
+                    <div><button onClick={this.handleDeleteProduct} className="btn">Borrar</button></div>
                 </div>
             </div>
         );

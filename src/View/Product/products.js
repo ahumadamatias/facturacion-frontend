@@ -17,10 +17,14 @@ class Products extends Component {
                 "descripcion": "",
                 "precio": ""
             },
-            products: []
+            products: [],
+            name: "",
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateListProducts = this.updateListProducts.bind(this)
+        this.handleChangeSearch = this.handleChangeSearch.bind(this)
+        this.handleSearchProduct = this.handleSearchProduct.bind(this)
     }
     componentDidMount(){
         productApi.getProducts()
@@ -31,7 +35,7 @@ class Products extends Component {
                 console.log(e)
             });
     }
-    componentDidUpdate() {
+    updateListProducts(){
         productApi.getProducts()
             .then( res => {
                 this.setState({products: res})
@@ -39,6 +43,21 @@ class Products extends Component {
             .catch( e => {
                 console.log(e)
             });
+    }
+    handleChangeSearch(e){
+        this.setState({name: e.target.value})
+    }
+    handleSearchProduct(e){
+        e.preventDefault()
+        console.log(this.state.name)
+        productApi.getProductByName(this.state.name)
+            .then( res => {
+                this.setState({products: res})
+                console.log(res)
+            })
+            .catch( e => {
+                console.log(e)
+            })
     }
     handleChange(e){
         let product = this.state.product;
@@ -54,6 +73,7 @@ class Products extends Component {
             .catch( e => {
                 console.log(e)
             });
+        this.updateListProducts()
     }
     render() { 
         return ( 
@@ -72,10 +92,11 @@ class Products extends Component {
                         <button type="submit" className="btn">Crear</button>
                     </div>
                 </form>
-                <div className="content_clients">
+                <div className="content_products">
                     <h3>Productos</h3>
                     <form>
-                        <input type="text" placeholder="Buscar Producto | Ingrese Nombre" className="input"/>
+                        <input type="text" value={this.state.name} onChange={this.handleChangeSearch} placeholder="Ingrese Nombre" className="input"/>
+                        <button onClick={this.handleSearchProduct} className="btn">Buscar</button>
                     </form>
                     {this.state.products.map(product => 
                         <Product data={product} />
@@ -87,13 +108,3 @@ class Products extends Component {
 }
  
 export default Products;
-
-/*
-                    {this.state.products.map(product => 
-                        <tr>
-                            <td>{product.codigo}</td>
-                            <td>{product.nombre}</td>
-                            <td>{product.descripcion}</td>
-                            <td>${product.precio}</td>
-                        </tr>
-                    )}*/

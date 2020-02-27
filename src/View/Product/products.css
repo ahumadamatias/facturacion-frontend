@@ -43,29 +43,8 @@
     text-align: center;
 }
 
-.content_list-product .list-product{
-    border-collapse: collapse;
-    width: 80%;
-    margin: auto;
-}
-  
-.content_list-product .list-product td, th {
-    border: 1px solid white;
-    padding: 8px;
-}
-
-.content_list-product .list-product th {
-    font-family: 'Anton', sans-serif;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #FF130B;
-    color: white;
-}
-
-.content_list-product .list-product td{
-    font-family: 'Open sans', sans-serif;
-    text-align: center;
-    background-color: #f2f2f2;
-    color: #2C2B2B;
+.products .content_products form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
