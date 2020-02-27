@@ -1,0 +1,24 @@
+.client form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.client form select{
+    background: white;
+}
+
+.client h3{
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+    color: #2C2B2B;
+    font-size: 35px;
+    text-align: center;
+}
+
+.client .content_client form label{
+    font-family: 'Open sans', sans-serif;
+    font-weight: bolder;
+}

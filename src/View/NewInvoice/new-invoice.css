@@ -1,0 +1,43 @@
+.content_new-invoice{
+    position: relative;
+    margin-top: 10px;
+}
+
+.content_new-invoice form{
+    position: relative;
+    width: 70%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_new-invoice form input{
+    width: 300px;
+    height: 40px;
+    margin: 10px 10px 10px 0px;
+    padding: 0 10px;
+    font-family: 'Open sans', sans-serif;
+    border: 2px solid #EDEBEB;
+}
+
+.content_new-invoice form .content_input-product input:nth-child(2){
+    width: 150px;
+}
+
+.content_new-invoice form button{
+    background: #FF130B;
+    color: white;
+    width: 100px;
+    height: 40px;
+    margin: 10px 0;
+    font-family: 'Anton', sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.content_new-invoice form button:hover{
+    box-shadow: 0px 0px 2px #2C2B2B;
+}

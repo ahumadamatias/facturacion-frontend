@@ -1,0 +1,18 @@
+.content_client-component{
+    background: white;
+    display: flex;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 1px 1px 2px #2C2B2B;
+}
+
+.content_client-component div{
+    margin: auto;
+}
+
+.content_client-component .data{
+    background: #EDEBEB;
+    width: 20%;
+    padding: 10px 0;
+    text-align: center;
+}

@@ -1,0 +1,118 @@
+.content_invoice{
+    background: white;
+    position: relative;
+    margin: auto;
+    width: 80%;
+    padding: 20px;
+    box-sizing: border-box;
+    top: 10px;
+    box-shadow: 0px 0px 2px #2C2B2B;
+}
+
+.content_invoice .content_data-empresa{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EDEBEB;
+}
+
+.content_invoice .content_data-empresa .title_data-empresa{
+    text-align: center;
+}
+
+.content_invoice .content_data-empresa .data-empresa{
+    display: flex;
+}
+
+.content_invoice .content_data-empresa .data-empresa div{
+    width: 50%;
+    text-align: center;
+}
+
+.content_invoice .content_data-empresa .data-empresa div span{
+    font-weight: bolder;
+}
+
+.content_invoice .content_data-client{
+    position: relative;
+    margin: auto;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid #EDEBEB;
+}
+
+.content_invoice .content_data-client span{
+    font-weight: bolder;
+}
+
+.content_invoice .content_list-product{
+    margin-bottom: 20px;
+}
+
+.content_invoice .content_list-product .list-product{
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.content_invoice .content_list-product .list-product td, th {
+    border: 4px solid white;
+    padding: 8px;
+}
+
+.content_invoice .content_list-product .list-product th {
+    font-family: 'Anton', sans-serif;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #FF130B;
+    color: white;
+}
+
+.content_invoice .content_list-product .list-product td{
+    font-family: 'Open sans', sans-serif;
+    text-align: center;
+    background-color: #f2f2f2;
+    color: #2C2B2B;
+}
+
+.content_invoice .content_list-product .list-product .btn-delete .icon-cross{
+    background: #2C2B2B;
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    right: 20px;
+    padding: 7px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.content_invoice .footer_invoice{
+    padding: 5px 0px;
+    text-align: center;
+}
+
+.content_invoice .footer_invoice p{
+    position: relative;
+    background: #2C2B2B;
+    color: white;
+    font-size: 20px;
+}
+
+.content_invoice .footer_invoice p span{
+    font-family: 'Anton', sans-serif;
+}
+
+.content_invoice .footer_invoice .observations_invoice{
+    position: relative;
+    background: #F2F2F2;
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 150px;
+    min-width: 100%;
+    min-height: 150px;
+    max-width: 100%;
+    max-height: 150px;
+}
