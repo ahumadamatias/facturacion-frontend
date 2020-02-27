@@ -27,6 +27,11 @@ class ClientApi {
         const data = query.data;
         return data;
     }
+    async deleteClient(id){
+        const query = await axios.delete(`${BASE}clientes/${id}`);
+        const data = query.data;
+        return data;
+    }
 }
 
 export default ClientApi;

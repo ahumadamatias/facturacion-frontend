@@ -21,21 +21,11 @@ class Products extends Component {
             name: "",
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.updateListProducts = this.updateListProducts.bind(this)
+        this.handleOnClickCreateClient = this.handleOnClickCreateClient.bind(this);
         this.handleChangeSearch = this.handleChangeSearch.bind(this)
         this.handleSearchProduct = this.handleSearchProduct.bind(this)
     }
     componentDidMount(){
-        productApi.getProducts()
-            .then( res => {
-                this.setState({products: res})
-            })
-            .catch( e => {
-                console.log(e)
-            });
-    }
-    updateListProducts(){
         productApi.getProducts()
             .then( res => {
                 this.setState({products: res})
@@ -49,7 +39,6 @@ class Products extends Component {
     }
     handleSearchProduct(e){
         e.preventDefault()
-        console.log(this.state.name)
         productApi.getProductByName(this.state.name)
             .then( res => {
                 this.setState({products: res})
@@ -64,7 +53,7 @@ class Products extends Component {
         product[e.target.name] = e.target.value;
         this.setState({product: product});
     }
-    handleSubmit(e){
+    handleOnClickCreateClient(e){
         e.preventDefault();
         productApi.createProduct(this.state.product)
             .then( res => {
@@ -73,12 +62,20 @@ class Products extends Component {
             .catch( e => {
                 console.log(e)
             });
-        this.updateListProducts()
+        setTimeout( () =>{
+            productApi.getProducts()
+                .then( res => {
+                    this.setState({products: res})
+                })
+                .catch( e => {
+                    console.log(e)
+                });
+        }, 500)
     }
     render() { 
         return ( 
             <div className="products">
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <h3>Crear Nuevo Producto</h3>
                     <div className="content_input-textarea-button">
                         <div className="content_input">
@@ -89,7 +86,7 @@ class Products extends Component {
                         <div className="content_textarea">
                             <textarea  name="descripcion" value={this.state.product.descripcion} onChange={this.handleChange} className="input">Escriba descripcion</textarea>
                         </div>
-                        <button type="submit" className="btn">Crear</button>
+                        <button onClick={this.handleOnClickCreateClient} type="submit" className="btn">Crear</button>
                     </div>
                 </form>
                 <div className="content_products">

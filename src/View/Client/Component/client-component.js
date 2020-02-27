@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ClientApi from '../../../Service/client-api';
 
-import './client-component.css'
+import './client-component.css';
+
+const clientApi = new ClientApi();
 
 class ClientComponent extends Component {
     constructor(props) {
@@ -11,9 +14,20 @@ class ClientComponent extends Component {
             routeEdit: '/cliente/editar/'+this.props.data.id,
             routeDelete: '/cliente/delete/'+this.props.data.id
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteProduct = this.handleDeleteProduct.bind(this);
+    }
+    handleDeleteProduct(){
+        clientApi.deleteClient(this.props.data.id)
+            .then( res => {
+                console.log(res)
+            })
+            .catch( e => {
+                console.log(e)
+            });
     }
     handleSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
     }
     render() { 
         return (
@@ -23,7 +37,7 @@ class ClientComponent extends Component {
                 <div className="data"><p>{this.props.data.cuit}</p></div>
                 <div><Link to={this.state.routeInvoice}><button className="btn">Nueva Factura</button></Link></div>
                 <div><Link to={this.state.routeEdit}><button className="btn">Editar</button></Link></div>
-                <div><Link to={this.state.routeDelete}><button className="btn">Borrar</button></Link></div>
+                <div><button onClick={this.handleDeleteProduct} className="btn">Borrar</button></div>
             </div>
         );
     }

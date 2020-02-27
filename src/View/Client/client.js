@@ -17,10 +17,13 @@ class Client extends Component {
                 "direccion": "",
                 "condicionIva": "RESPONSABLE_INSCRIPTO"
             },
-            clients: []
+            clients: [],
+            name: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeSearch = this.handleChangeSearch.bind(this)
+        this.handleSearchClient = this.handleSearchClient.bind(this)
     }
     componentDidMount(){
         clientApi.getClients()
@@ -31,8 +34,13 @@ class Client extends Component {
                 console.log(e)
             });
     }
-    componentDidUpdate() {
-        clientApi.getClients()
+    handleChangeSearch(e){
+        this.setState({name: e.target.value})
+    }
+    handleSearchClient(e){
+        e.preventDefault()
+        console.log(this.state.name)
+        clientApi.getClientByName(this.state.name)
             .then( res => {
                 this.setState({clients: res})
             })
@@ -54,6 +62,16 @@ class Client extends Component {
             .catch( e => {
                 console.log(e)
             });
+        setTimeout( () => {
+            clientApi.getClients()
+                .then( res => {
+                    this.setState({clients: res})
+                    console.log(this.state.clients)
+                })
+                .catch( e => {
+                    console.log(e)
+                });
+        }, 500)
     }
     render() { 
         return ( 
@@ -75,7 +93,8 @@ class Client extends Component {
                 <div className="content_clients">
                     <h3>Clientes</h3>
                     <form>
-                        <input type="text" placeholder="Buscar Cliente | Ingrese Nombre" className="input"/>
+                    <input type="text" value={this.state.name} onChange={this.handleChangeSearch} placeholder="Ingrese Nombre" className="input"/>
+                        <button onClick={this.handleSearchClient} className="btn">Buscar</button>
                     </form>
                     {this.state.clients.map(client => 
                         <ClientComponent data={client} />

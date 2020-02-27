@@ -18,7 +18,8 @@
     text-align: center;
 }
 
-.client .content_client form label{
-    font-family: 'Open sans', sans-serif;
-    font-weight: bolder;
+.client .content_clients form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
