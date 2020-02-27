@@ -22,6 +22,7 @@ class ClientComponent extends Component {
             .catch( e => {
                 console.log(e)
             });
+        this.props.callback();
     }
     handleSubmit(e){
         e.preventDefault()

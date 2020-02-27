@@ -24,6 +24,7 @@ class Products extends Component {
         this.handleOnClickCreateClient = this.handleOnClickCreateClient.bind(this);
         this.handleChangeSearch = this.handleChangeSearch.bind(this)
         this.handleSearchProduct = this.handleSearchProduct.bind(this)
+        this.updateListProducts = this.updateListProducts.bind(this)
     }
     componentDidMount(){
         productApi.getProducts()
@@ -48,6 +49,19 @@ class Products extends Component {
                 console.log(e)
             })
     }
+    updateListProducts(){
+        console.log("Entrando a la funcion")
+        setTimeout( () => {
+            productApi.getProducts()
+                .then( res => {
+                    this.setState({products: res})
+                    console.log("metodo")
+                })
+                .catch( e => {
+                    console.log(e)
+                });
+        }, 300)
+    }
     handleChange(e){
         let product = this.state.product;
         product[e.target.name] = e.target.value;
@@ -70,7 +84,7 @@ class Products extends Component {
                 .catch( e => {
                     console.log(e)
                 });
-        }, 500)
+        }, 300)
     }
     render() { 
         return ( 
@@ -96,7 +110,7 @@ class Products extends Component {
                         <button onClick={this.handleSearchProduct} className="btn">Buscar</button>
                     </form>
                     {this.state.products.map(product => 
-                        <Product data={product} />
+                        <Product data={product} callback={this.updateListProducts} />
                     )}
                 </div>
             </div>
