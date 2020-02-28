@@ -3,6 +3,17 @@ import React, { Component } from 'react';
 import './invoice.css'
 
 class Invoice extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cantidad: "",
+        }
+        this.handleOnClickDeleteProduct = this.handleOnClickDeleteProduct.bind(this);
+    }
+    handleOnClickDeleteProduct(id, e){
+        e.preventDefault();
+        this.props.callback(id)
+    }
     render(){
         return(
             <div className="content_invoice">
@@ -37,6 +48,14 @@ class Invoice extends Component {
                             <th>Precio Uni.</th>
                             <th>SubTotal</th>
                         </tr>
+                        {this.props.products.map(product => 
+                            <tr>
+                                <td>{product.nombre}</td>
+                                <td>4</td>
+                                <td>${product.precio}</td>
+                                <td>$8</td>
+                                <div onClick={ (e) => this.handleOnClickDeleteProduct(product.id, e)} className="btn-delete"><span className="icon-cross"></span></div>
+                            </tr>)}
                     </table>
                 </div>
                 <footer className="footer_invoice">

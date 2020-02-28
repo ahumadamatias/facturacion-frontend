@@ -8,6 +8,10 @@ class ProductInvoice extends Component {
         this.state = {
             cantidad: "",
         }
+        this.handleOnClickAdd = this.handleOnClickAdd.bind(this);
+    }
+    handleOnClickAdd(){
+        this.props.callback(this.props.data)
     }
     render() { 
         return (
@@ -15,7 +19,7 @@ class ProductInvoice extends Component {
                 <div><p>{this.props.data.codigo}</p></div>
                 <div><p>{this.props.data.nombre}</p></div>
                 <input type="text" placeholder="Ingrese Cantidad" value={this.state.cantidad} onChange={this.handleChange} className="input"/>
-                <button type="submit" className="btn">Agregar</button>
+                <button onClick={this.handleOnClickAdd} type="submit" className="btn">Agregar</button>
             </div>
         );
     }

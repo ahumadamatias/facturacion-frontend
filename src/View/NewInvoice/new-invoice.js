@@ -15,13 +15,14 @@ class NewInvoice extends Component {
         super(props);
         this.state = {
             productsSearch: [],
-            codigo: '',
-            cuit: '',
-            client: {},
+            productList: [],
+            client: '',
             name: ''
         };
         this.handleChangeSearch = this.handleChangeSearch.bind(this);
         this.handleOnClickSearch = this.handleOnClickSearch.bind(this);
+        this.addProductToAList = this.addProductToAList.bind(this);
+        this.deleteProductToAList = this.deleteProductToAList.bind(this);
     }
     componentDidMount(){
         clientApi.getClientById(this.props.match.params.id)
@@ -37,7 +38,6 @@ class NewInvoice extends Component {
         productApi.getProductByName(this.state.name)
             .then( res => {
                 this.setState({productsSearch: res})
-                console.log(res)
             })
             .catch( e => {
                 console.log(e)
@@ -45,6 +45,18 @@ class NewInvoice extends Component {
     }
     handleChangeSearch(e){
         this.setState({name: e.target.value})
+    }
+    addProductToAList(product){
+        this.state.productList.push(product);
+        this.setState({productList: this.state.productList});
+    }
+    deleteProductToAList(id){
+        for (let i = 0; i < this.state.productList.length; i++) {
+            if (this.state.productList[i].id === id) {
+                this.state.productList.splice(i, 1);
+                this.setState({productList: this.state.productList});
+            };
+        };
     }
     render() { 
         return ( 
@@ -56,9 +68,9 @@ class NewInvoice extends Component {
                     </div>
                 </form>
                 {this.state.productsSearch.map(product => 
-                        <ProductInvoice data={product} />
+                        <ProductInvoice data={product} callback={this.addProductToAList} />
                 )}
-                <Invoice client={this.state.client}/>
+                <Invoice client={this.state.client} products={this.state.productList} callback={this.deleteProductToAList} />
                 <br/>
                 <br/>
             </div>
