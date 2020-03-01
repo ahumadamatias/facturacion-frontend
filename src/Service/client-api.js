@@ -27,8 +27,22 @@ class ClientApi {
         const data = query.data;
         return data;
     }
+    async updateClient(client){
+        const clientJson = JSON.stringify(client);
+        const query = await axios.put(`${BASE}clientes`, clientJson,{
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const data = query.data;
+        return data;
+    }
     async deleteClient(id){
-        const query = await axios.delete(`${BASE}clientes/${id}`);
+        const query = await axios.put(`${BASE}clientes/${id}`, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
         const data = query.data;
         return data;
     }

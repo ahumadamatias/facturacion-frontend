@@ -9,9 +9,13 @@ class ProductInvoice extends Component {
             cantidad: "",
         }
         this.handleOnClickAdd = this.handleOnClickAdd.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     handleOnClickAdd(){
-        this.props.callback(this.props.data)
+        this.props.callback(this.props.data, this.state.cantidad)
+    }
+    handleChange(e){
+        this.setState({cantidad: e.target.value})
     }
     render() { 
         return (

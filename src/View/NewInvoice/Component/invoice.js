@@ -1,22 +1,73 @@
 import React, { Component } from 'react';
+import InvoiceApi from '../../../Service/invoice-api';
 
-import './invoice.css'
+import './invoice.css';
+
+const invoiceApi = new InvoiceApi();
 
 class Invoice extends Component {
     constructor(props) {
         super(props);
         this.state = {
             cantidad: "",
+            factura:{
+                "encabezado": {
+                    "cliente": {
+                        "id": "",
+                    }
+                },
+                "items": [],
+                "pie": {
+                    "observaciones": ""
+                }
+            },
         }
         this.handleOnClickDeleteProduct = this.handleOnClickDeleteProduct.bind(this);
+        this.handleOnClickCreateInvoice = this.handleOnClickCreateInvoice.bind(this);
+        this.handleChangeObservation = this.handleChangeObservation.bind(this);
+        this.generateItems = this.generateItems.bind(this);
+    }
+    handleOnClickCreateInvoice(e){
+        e.preventDefault();
+        let factura = this.state.factura;
+        factura.encabezado.cliente.id = this.props.client.id;
+        factura.items = this.generateItems();
+        this.setState({factura: factura});
+        console.log(JSON.stringify(this.state.factura))
+        invoiceApi.createInvoice(this.state.factura)
+            .then( res => {
+                console.log(res);
+            })
+            .catch( e => {
+                console.log(e);
+            })
     }
     handleOnClickDeleteProduct(id, e){
         e.preventDefault();
-        this.props.callback(id)
+        this.props.callback(id);
+    }
+    handleChangeObservation(e){
+        let factura = this.state.factura;
+        factura.pie.observaciones = e.target.value;
+        this.setState({factura: factura});
+    }
+    generateItems(){
+        let items = [];
+        for (let i = 0; i < this.props.products.length; i++) {
+            let item = {
+                producto: {
+                    "id": this.props.products[i].product.id
+                },
+                "cantidad": this.props.products[i].quantity
+            };
+            items.push(item);         
+        }
+        return items
     }
     render(){
         return(
             <div className="content_invoice">
+                <button onClick={this.handleOnClickCreateInvoice} type="submit" className="btn">Facturar</button>
                 <div className="content_data-empresa">
                     <div className="title_data-empresa"><h2>Datos de la Empresa</h2></div>
                     <div className="data-empresa">
@@ -42,25 +93,30 @@ class Invoice extends Component {
                 </div>
                 <div className="content_list-product">
                     <table className="list-product">
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio Uni.</th>
-                            <th>SubTotal</th>
-                        </tr>
-                        {this.props.products.map(product => 
+                        <thead>
                             <tr>
-                                <td>{product.nombre}</td>
-                                <td>4</td>
-                                <td>${product.precio}</td>
-                                <td>$8</td>
-                                <div onClick={ (e) => this.handleOnClickDeleteProduct(product.id, e)} className="btn-delete"><span className="icon-cross"></span></div>
-                            </tr>)}
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Uni.</th>
+                                <th>SubTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.products.map(product => 
+                                <tr>
+                                    <td>{product.product.nombre}</td>
+                                    <td>{product.quantity}</td>
+                                    <td>${product.product.precio}</td>
+                                    <td>${(product.quantity) * (product.product.precio)}</td>
+                                    <div onClick={ (e) => this.handleOnClickDeleteProduct(product.id, e)} className="btn-delete"><span className="icon-cross"></span></div>
+                                </tr>
+                            )}
+                        </tbody>
                     </table>
                 </div>
                 <footer className="footer_invoice">
                     <p><span>Total = </span>$120</p>
-                    <textarea name="observaciones" className="observations_invoice">Observaciones</textarea>
+                    <textarea name="observaciones" value={this.state.factura.pie.observaciones} onChange={this.handleChangeObservation} className="observations_invoice">Observaciones</textarea>
                 </footer>
             </div>
         )
@@ -68,13 +124,3 @@ class Invoice extends Component {
 }
 
 export default Invoice;
-
-/*{props.products ? undefined : props.products.map(product => 
-    <tr>
-        <td>{product.producto}</td>
-        <td>4</td>
-        <td>{product.precio}</td>
-        <td>$8</td>
-        <div className="btn-delete"><span className="icon-cross"></span></div>
-    </tr>
-)}*/

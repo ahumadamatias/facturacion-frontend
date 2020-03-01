@@ -46,8 +46,12 @@ class NewInvoice extends Component {
     handleChangeSearch(e){
         this.setState({name: e.target.value})
     }
-    addProductToAList(product){
-        this.state.productList.push(product);
+    addProductToAList(product, quantity){
+        let productAndQuantity = {
+            product: product,
+            quantity: quantity
+        }
+        this.state.productList.push(productAndQuantity);
         this.setState({productList: this.state.productList});
     }
     deleteProductToAList(id){

@@ -27,8 +27,22 @@ class ProductApi {
         const data = query.data;
         return data;
     }
+    async updateProduct(product){
+        const productJson = JSON.stringify(product);
+        const query = await axios.put(`${BASE}productos`, productJson,{
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const data = query.data;
+        return data;
+    }
     async deleteProduct(id){
-        const query = await axios.delete(`${BASE}productos/${id}`);
+        const query = await axios.put(`${BASE}productos/${id}`, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
         const data = query.data;
         return data;
     }
