@@ -1,0 +1,12 @@
+.invoice-list{
+    position: relative;
+    margin-top: 10px;
+}
+
+.invoice-list h3{
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+    color: #2C2B2B;
+    font-size: 35px;
+    text-align: center;
+}

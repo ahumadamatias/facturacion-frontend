@@ -10,7 +10,7 @@ function Menu(props){
             <nav className="menu">
                 <Link className="item_menu" to="/productos"><span className="icon-barcode" />Productos</Link>
                 <Link className="item_menu" to="/clientes"><span className="icon-user" />Clientes</Link>
-                <Link className="item_menu" to="/"><span className="icon-office" />Empresa</Link>
+                <Link className="item_menu" to="/facturas"><span className="icon-profile" />Facturas</Link>
             </nav>
         </div>
     )

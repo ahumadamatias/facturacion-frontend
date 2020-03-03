@@ -2,7 +2,7 @@ import axios from 'axios';
 const BASE = 'http://127.0.0.1:8080/api/';
 
 class InvoiceApi {
-    async getInvoice(){
+    async getInvoices(){
         const query = await axios.get(`${BASE}facturas`);
         const data = query.data;
         return data;
