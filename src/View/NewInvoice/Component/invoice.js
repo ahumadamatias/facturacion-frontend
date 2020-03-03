@@ -35,16 +35,16 @@ class Invoice extends Component {
         factura.items = this.generateItems();
         this.setState({factura: factura});
         invoiceApi.createInvoice(this.state.factura)
-            .then( res => {
-                console.log(res);
+            .then( () => {
+                this.props.callbackRedirect(true);
             })
             .catch( e => {
                 console.log(e);
-            })
-    }
+            });
+        }
     handleOnClickDeleteProduct(id, e){
         e.preventDefault();
-        this.props.callback(id);
+        this.props.callbackDelete(id);
     }
     handleChangeObservation(e){
         let factura = this.state.factura;

@@ -25,7 +25,7 @@ class NewInvoice extends Component {
         this.deleteProductToAList = this.deleteProductToAList.bind(this);
     }
     componentDidMount(){
-        clientApi.getClientById(this.props.match.params.id)
+        clientApi.getClientById(this.props.data.match.params.id)
             .then( res => {
                 this.setState({client: res})
             })
@@ -74,7 +74,7 @@ class NewInvoice extends Component {
                 {this.state.productsSearch.map(product => 
                         <ProductInvoice data={product} callback={this.addProductToAList} />
                 )}
-                <Invoice client={this.state.client} products={this.state.productList} callback={this.deleteProductToAList} />
+                <Invoice client={this.state.client} products={this.state.productList} callbackDelete={this.deleteProductToAList} callbackRedirect={this.props.callback} />
                 <br/>
                 <br/>
             </div>
