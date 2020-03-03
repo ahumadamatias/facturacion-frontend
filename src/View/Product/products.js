@@ -20,11 +20,11 @@ class Products extends Component {
             products: [],
             name: "",
         };
+        this.updateListProducts = this.updateListProducts.bind(this);
+        this.handleChangeSearch = this.handleChangeSearch.bind(this);
+        this.handleSearchProduct = this.handleSearchProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleOnClickCreateClient = this.handleOnClickCreateClient.bind(this);
-        this.handleChangeSearch = this.handleChangeSearch.bind(this)
-        this.handleSearchProduct = this.handleSearchProduct.bind(this)
-        this.updateListProducts = this.updateListProducts.bind(this)
     }
     componentDidMount(){
         productApi.getProducts()
@@ -34,6 +34,15 @@ class Products extends Component {
             .catch( e => {
                 console.log(e)
             });
+    }
+    updateListProducts(){
+        productApi.getProducts()
+                .then( res => {
+                    this.setState({products: res})
+                })
+                .catch( e => {
+                    console.log(e)
+                });
     }
     handleChangeSearch(e){
         this.setState({name: e.target.value})
@@ -49,19 +58,6 @@ class Products extends Component {
                 console.log(e)
             })
     }
-    updateListProducts(){
-        console.log("Entrando a la funcion")
-        setTimeout( () => {
-            productApi.getProducts()
-                .then( res => {
-                    this.setState({products: res})
-                    console.log("metodo")
-                })
-                .catch( e => {
-                    console.log(e)
-                });
-        }, 300)
-    }
     handleChange(e){
         let product = this.state.product;
         product[e.target.name] = e.target.value;
@@ -70,26 +66,17 @@ class Products extends Component {
     handleOnClickCreateClient(e){
         e.preventDefault();
         productApi.createProduct(this.state.product)
-            .then( res => {
-                console.log(res)
+            .then( () => {
+                this.updateListProducts()
             })
             .catch( e => {
                 console.log(e)
             });
-        setTimeout( () =>{
-            productApi.getProducts()
-                .then( res => {
-                    this.setState({products: res})
-                })
-                .catch( e => {
-                    console.log(e)
-                });
-        }, 300)
     }
     render() { 
         return ( 
             <div className="products">
-                <form>
+                <form onSubmit={this.handleOnClickCreateClient}>
                     <h3>Crear Nuevo Producto</h3>
                     <div className="content_input-textarea-button">
                         <div className="content_input">
@@ -100,7 +87,7 @@ class Products extends Component {
                         <div className="content_textarea">
                             <textarea  name="descripcion" value={this.state.product.descripcion} onChange={this.handleChange} className="input">Escriba descripcion</textarea>
                         </div>
-                        <button onClick={this.handleOnClickCreateClient} type="submit" className="btn">Crear</button>
+                        <button type="submit" className="btn">Crear</button>
                     </div>
                 </form>
                 <div className="content_products">

@@ -19,8 +19,8 @@ class ClientComponent extends Component {
     }
     handleDeleteProduct(){
         clientApi.deleteClient(this.props.data.id)
-            .then( res => {
-                console.log(res)
+            .then( () => {
+                this.props.callback();
             })
             .catch( e => {
                 console.log(e)

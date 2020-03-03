@@ -17,12 +17,11 @@ class ClientComponent extends Component {
     handleDeleteProduct(){
         productApi.deleteProduct(this.props.data.id)
             .then( res => {
-                console.log(res)
+                this.props.callback()
             })
             .catch( e => {
                 console.log(e)
             });
-        this.props.callback();
     }
     handleSubmit(e){
         e.preventDefault()

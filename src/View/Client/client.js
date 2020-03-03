@@ -22,8 +22,9 @@ class Client extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChangeSearch = this.handleChangeSearch.bind(this)
-        this.handleSearchClient = this.handleSearchClient.bind(this)
+        this.handleChangeSearch = this.handleChangeSearch.bind(this);
+        this.handleSearchClient = this.handleSearchClient.bind(this);
+        this.updateListClient = this.updateListClient.bind(this);
     }
     componentDidMount(){
         clientApi.getClients()
@@ -33,6 +34,15 @@ class Client extends Component {
             .catch( e => {
                 console.log(e)
             });
+    }
+    updateListClient(){
+        clientApi.getClients()
+                .then( res => {
+                    this.setState({clients: res})
+                })
+                .catch( e => {
+                    console.log(e)
+                });
     }
     handleChangeSearch(e){
         this.setState({name: e.target.value})
@@ -56,22 +66,12 @@ class Client extends Component {
     handleSubmit(e){
         e.preventDefault();
         clientApi.createClient(this.state.client)
-            .then( res => {
-                console.log(res)
+            .then( () => {
+                this.updateListClient();
             })
             .catch( e => {
-                console.log(e)
+                console.log(e);
             });
-        setTimeout( () => {
-            clientApi.getClients()
-                .then( res => {
-                    this.setState({clients: res})
-                    console.log(this.state.clients)
-                })
-                .catch( e => {
-                    console.log(e)
-                });
-        }, 500)
     }
     render() { 
         return ( 
@@ -97,7 +97,7 @@ class Client extends Component {
                         <button onClick={this.handleSearchClient} className="btn">Buscar</button>
                     </form>
                     {this.state.clients.map(client => 
-                        <ClientComponent data={client} />
+                        <ClientComponent data={client} callback={this.updateListClient} />
                     )}
                 </div>
             </div>
