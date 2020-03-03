@@ -1,0 +1,21 @@
+.content_invoice .footer_invoice .observations_invoice-detail{
+    position: relative;
+    background: #F2F2F2;
+    color: black;
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.content_invoice .content_data-empresa .type-invoice{
+    position: absolute;
+    background: #FF130B;
+    font-family: 'Anton', sans-serif;
+    color: white;
+    font-size: 30px;
+    padding: 23px 40px;
+    border-radius: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}

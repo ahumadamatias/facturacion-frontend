@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import InvoiceApi from '../../../Service/invoice-api';
 
 import './invoice.css';
@@ -33,7 +34,6 @@ class Invoice extends Component {
         factura.encabezado.cliente.id = this.props.client.id;
         factura.items = this.generateItems();
         this.setState({factura: factura});
-        console.log(JSON.stringify(this.state.factura))
         invoiceApi.createInvoice(this.state.factura)
             .then( res => {
                 console.log(res);

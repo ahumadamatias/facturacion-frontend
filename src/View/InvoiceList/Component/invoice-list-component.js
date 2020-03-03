@@ -7,7 +7,7 @@ class ClientComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            routeInvoice: '/facturas/detalle/' + this.props.invoice.encabezado.id
+            routeInvoice: '/factura/detalle/' + this.props.invoice.encabezado.id
         };
         this.cutString = this.cutString.bind(this);
     }
@@ -21,7 +21,7 @@ class ClientComponent extends Component {
                 <div className="data"><p>{this.cutString()}</p></div>
                 <div className="data"><p>Tipo {this.props.invoice.encabezado.letra}</p></div>
                 <div className="data"><p>{this.props.invoice.encabezado.cliente.nombre}</p></div>
-                <div className="data"><p>$I{this.props.invoice.pie.precioTotal}</p></div>
+                <div className="data"><p>${this.props.invoice.pie.precioTotal}</p></div>
                 <div><Link to={this.state.routeInvoice}><button className="btn">Ver Detalle</button></Link></div>
             </div>
         );

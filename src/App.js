@@ -6,8 +6,8 @@ import Menu from '../src/GlobalComponent/Menu/menu'
 import NewInvoice from '../src/View/NewInvoice/new-invoice';
 import Products from '../src/View/Product/products';
 import Client from '../src/View/Client/client';
-import InvoiceDetails from '../src/View/InvoiceDetail/invoice-details'
-import InvoiceList from '../src/View/InvoiceList/invoice-list'
+import InvoiceList from '../src/View/InvoiceList/invoice-list';
+import InvoiceDetails from '../src/View/InvoiceDetail/invoice-details';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route exac path="/cliente/facturar/:id" component={NewInvoice} />
           <Route exac path="/productos" component={Products} />
           <Route exac path="/facturas" component={InvoiceList} />
-          <Route exac path="/facturas/detalle/:id" component={InvoiceDetails} />
+          <Route exac path="/factura/detalle/:id" component={InvoiceDetails} />
       </Switch>
     </BrowserRouter>
   );
