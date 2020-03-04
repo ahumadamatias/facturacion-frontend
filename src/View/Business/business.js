@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import BusinessApi from '../../Service/business-api';
 
 import '../CreateBusiness/create-business.css';
@@ -20,11 +21,13 @@ class Business extends Component {
                 codigo_postal: "",
                 ciudad: "",
                 condicionIva: "RESPONSABLE_INSCRIPTO"
-            }
+            },
+            redirect: false
         }
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleSubmitBusiness = this.handleSubmitBusiness.bind(this);
         this.handleDeleteBusiness = this.handleDeleteBusiness.bind(this);
+        this.redirectRender = this.redirectRender.bind(this);
     }
     componentDidMount(){
         businessApi.getBusiness()
@@ -43,8 +46,8 @@ class Business extends Component {
     handleSubmitBusiness(e){
         e.preventDefault();
         businessApi.updateBusiness(this.state.empresa)
-            .then( res => {
-                console.log(res);
+            .then( () => {
+                this.setState({redirect: true});
             })
             .catch( e => {
                 console.log(e);
@@ -60,9 +63,15 @@ class Business extends Component {
                 console.log(e);
             })
     }
+    redirectRender(){
+        if (this.state.redirect) {
+            return <Redirect to="/clientes" />
+        }
+    }
     render() { 
         return (
             <div className="create-business">
+                {this.redirectRender()}
                 <h3>Datos de la Empresa</h3>
                 <form onSubmit={this.handleSubmitBusiness}>
                     <input type="text" name="nombre" value={this.state.empresa.nombre} onChange={this.handleChangeInput} placeholder="Ingrese su Nombre" className="input_create-business input"/>

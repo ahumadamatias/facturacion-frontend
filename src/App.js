@@ -11,6 +11,7 @@ import InvoiceDetails from '../src/View/InvoiceDetail/invoice-details';
 import CreateBusiness from '../src/View/CreateBusiness/create-business';
 import Business from '../src/View/Business/business'
 import EditProduct from './View/Product/edit-product';
+import EditClient from './View/Client/edit-client';
 
 const businessApi = new BusinessApi();
 
@@ -32,7 +33,6 @@ class App extends React.Component {
       .catch( e => {
         console.log(e);
       })
-      console.log(this.state.isVerified)
   }
   handleIsBusiness(isBusiness){
     this.setState({isBusiness})
@@ -60,10 +60,20 @@ class App extends React.Component {
                   ? <Redirect from="/cliente/facturar/:id" to="/facturas" />
                   : <NewInvoice data={props} callback={this.handleIsVerified} />
             )} />
+            <Route exact path="/cliente/editar/:id" render={ (props) => (
+                this.state.isVerified
+                  ? <Redirect from="/cliente/editar/:id" to="/clientes" />
+                  : <EditClient data={props} callback={this.handleIsVerified} />
+            )} />
             <Route exact path="/productos" render={ () => (
               this.state.isBusiness
                 ? <Products callback={this.handleIsVerified} />
                 : <Redirect from="/productos" to="/" />
+            )} />
+            <Route exact path="/producto/editar/:id" render={ (props) => (
+              this.state.isVerified
+              ? <Redirect from="/producto/editar/:id" to="/productos" />
+              : <EditProduct data={props} callback={this.handleIsVerified} />
             )} />
             <Route exact path="/facturas" render={ () => (
               this.state.isBusiness
@@ -79,11 +89,6 @@ class App extends React.Component {
               this.state.isBusiness
                 ? <Business callback={this.handleIsBusiness}/>
                 : <Redirect from="/empresa" to="/" />
-            )} />
-            <Route exact path="/producto/editar/:id" render={ (props) => (
-              this.state.isVerified
-              ? <Redirect from="/producto/editar/:id" to="/productos" />
-              : <EditProduct data={props} callback={this.handleIsVerified} />
             )} />
         </Switch>
       </BrowserRouter>
