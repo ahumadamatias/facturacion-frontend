@@ -24,7 +24,7 @@ class BusinessApi {
     }
     async updateBusiness(business){
         const businessJson = JSON.stringify(business);
-        const query = await axios.put(`${BASE}clientes`, businessJson,{
+        const query = await axios.put(`${BASE}empresa`, businessJson,{
             headers: {
                 "Content-Type": "application/json"
             }

@@ -34,6 +34,7 @@ class Products extends Component {
             .catch( e => {
                 console.log(e)
             });
+        this.props.callback(false);
     }
     updateListProducts(){
         productApi.getProducts()

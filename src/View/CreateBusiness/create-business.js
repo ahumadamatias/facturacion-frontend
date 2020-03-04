@@ -43,7 +43,7 @@ class CreateBusiness extends Component {
             <div className="create-business">
                 <h3>Creacion de los datos de la Empresa</h3>
                 <form onSubmit={this.handleSubmitBusiness}>
-                    <input type="text" name="nombre" value={this.state.empresa.nombre} onChange={this.handleChangeInput} placeholder="Ingrese su Nombre y Apellido" className="input_create-business input"/>
+                    <input type="text" name="nombre" value={this.state.empresa.nombre} onChange={this.handleChangeInput} placeholder="Ingrese su Nombre" className="input_create-business input"/>
                     <input type="text" name="direccion" value={this.state.empresa.direccion} onChange={this.handleChangeInput} placeholder="Ingrese su Dirección" className="input_create-business input"/>
                     <input type="text" name="ciudad" value={this.state.empresa.ciudad} onChange={this.handleChangeInput} placeholder="Ingrese su Ciudad" className="input_create-business"/>
                     <input type="text" name="provincia" value={this.state.empresa.provincia} onChange={this.handleChangeInput} placeholder="Ingrese su Provincia" className="input_create-business"/>

@@ -10,6 +10,7 @@ import InvoiceList from '../src/View/InvoiceList/invoice-list';
 import InvoiceDetails from '../src/View/InvoiceDetail/invoice-details';
 import CreateBusiness from '../src/View/CreateBusiness/create-business';
 import Business from '../src/View/Business/business'
+import EditProduct from './View/Product/edit-product';
 
 const businessApi = new BusinessApi();
 
@@ -17,10 +18,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isBilled: false,
+      isVerified: false,
       isBusiness: false
     };
-    this.handleIsBilled = this.handleIsBilled.bind(this);
+    this.handleIsVerified = this.handleIsVerified.bind(this);
     this.handleIsBusiness = this.handleIsBusiness.bind(this);
   }
   componentDidMount(){
@@ -31,12 +32,13 @@ class App extends React.Component {
       .catch( e => {
         console.log(e);
       })
+      console.log(this.state.isVerified)
   }
   handleIsBusiness(isBusiness){
     this.setState({isBusiness})
   }
-  handleIsBilled(isBilled){
-    this.setState({isBilled})
+  handleIsVerified(isVerified){
+    this.setState({isVerified})
   }
   render(){
     return (
@@ -50,17 +52,17 @@ class App extends React.Component {
             )} />
             <Route exact path="/clientes" render={ () => (
               this.state.isBusiness
-                ? <Client />
+                ? <Client callback={this.handleIsVerified} />
                 : <Redirect from="/clientes" to="/" />
             )} />
             <Route exact path="/cliente/facturar/:id" render={ (props) => (
-                this.state.isBilled
+                this.state.isVerified
                   ? <Redirect from="/cliente/facturar/:id" to="/facturas" />
-                  : <NewInvoice data={props} callback={this.handleIsBilled} />
+                  : <NewInvoice data={props} callback={this.handleIsVerified} />
             )} />
             <Route exact path="/productos" render={ () => (
               this.state.isBusiness
-                ? <Products />
+                ? <Products callback={this.handleIsVerified} />
                 : <Redirect from="/productos" to="/" />
             )} />
             <Route exact path="/facturas" render={ () => (
@@ -77,6 +79,11 @@ class App extends React.Component {
               this.state.isBusiness
                 ? <Business callback={this.handleIsBusiness}/>
                 : <Redirect from="/empresa" to="/" />
+            )} />
+            <Route exact path="/producto/editar/:id" render={ (props) => (
+              this.state.isVerified
+              ? <Redirect from="/producto/editar/:id" to="/productos" />
+              : <EditProduct data={props} callback={this.handleIsVerified} />
             )} />
         </Switch>
       </BrowserRouter>

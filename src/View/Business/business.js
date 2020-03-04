@@ -42,9 +42,9 @@ class Business extends Component {
     }
     handleSubmitBusiness(e){
         e.preventDefault();
-        businessApi.createBusiness(this.state.empresa)
-            .then( () => {
-                this.props.callback(true);
+        businessApi.updateBusiness(this.state.empresa)
+            .then( res => {
+                console.log(res);
             })
             .catch( e => {
                 console.log(e);
@@ -64,8 +64,8 @@ class Business extends Component {
         return (
             <div className="create-business">
                 <h3>Datos de la Empresa</h3>
-                <form>
-                    <input type="text" name="nombre" value={this.state.empresa.nombre} onChange={this.handleChangeInput} placeholder="Ingrese su Nombre y Apellido" className="input_create-business input"/>
+                <form onSubmit={this.handleSubmitBusiness}>
+                    <input type="text" name="nombre" value={this.state.empresa.nombre} onChange={this.handleChangeInput} placeholder="Ingrese su Nombre" className="input_create-business input"/>
                     <input type="text" name="direccion" value={this.state.empresa.direccion} onChange={this.handleChangeInput} placeholder="Ingrese su Dirección" className="input_create-business input"/>
                     <input type="text" name="ciudad" value={this.state.empresa.ciudad} onChange={this.handleChangeInput} placeholder="Ingrese su Ciudad" className="input_create-business"/>
                     <input type="text" name="provincia" value={this.state.empresa.provincia} onChange={this.handleChangeInput} placeholder="Ingrese su Provincia" className="input_create-business"/>
@@ -78,7 +78,7 @@ class Business extends Component {
                         <option value="CONSUMIDOR_FINAL">Consumidor Final</option>
                     </select>
                     <div className="content_button">
-                        <button onSubmit={this.handleSubmitBusiness} type="submit" className="btn">Actualizar</button>
+                        <button type="submit" className="btn">Actualizar</button>
                         <button onClick={this.handleDeleteBusiness} type="submit" className="btn">Borrar</button>
                     </div>
                 </form>

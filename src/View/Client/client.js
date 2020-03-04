@@ -34,6 +34,7 @@ class Client extends Component {
             .catch( e => {
                 console.log(e)
             });
+        this.props.callback(false);
     }
     updateListClient(){
         clientApi.getClients()
