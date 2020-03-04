@@ -25,6 +25,7 @@ class Products extends Component {
         this.handleSearchProduct = this.handleSearchProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleOnClickCreateClient = this.handleOnClickCreateClient.bind(this);
+        this.restartInput = this.restartInput.bind(this);
     }
     componentDidMount(){
         productApi.getProducts()
@@ -45,6 +46,15 @@ class Products extends Component {
                     console.log(e)
                 });
     }
+    restartInput(){
+        const product= {
+            codigo: "",
+            nombre: "",
+            descripcion: "",
+            precio: ""
+        };
+        this.setState({product})
+    }
     handleChangeSearch(e){
         this.setState({name: e.target.value})
     }
@@ -53,7 +63,6 @@ class Products extends Component {
         productApi.getProductByName(this.state.name)
             .then( res => {
                 this.setState({products: res})
-                console.log(res)
             })
             .catch( e => {
                 console.log(e)
@@ -73,6 +82,7 @@ class Products extends Component {
             .catch( e => {
                 console.log(e)
             });
+        this.restartInput();
     }
     render() { 
         return ( 

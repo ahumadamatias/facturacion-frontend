@@ -80,9 +80,9 @@ class App extends React.Component {
                 ? <InvoiceList />
                 : <Redirect from="/facturas" to="/" />
             )} />
-            <Route exact path="/factura/detalle/:id" render={ () => (
+            <Route exact path="/factura/detalle/:id" render={ (props) => (
               this.state.isBusiness
-                ? <InvoiceDetails />
+                ? <InvoiceDetails data={props} />
                 : <Redirect from="/factura/detalle/:id" to="/" />
             )} />
             <Route exact path="/empresa" render={ () => (

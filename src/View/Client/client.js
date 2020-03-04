@@ -25,6 +25,7 @@ class Client extends Component {
         this.handleChangeSearch = this.handleChangeSearch.bind(this);
         this.handleSearchClient = this.handleSearchClient.bind(this);
         this.updateListClient = this.updateListClient.bind(this);
+        this.restartInput = this.restartInput.bind(this);
     }
     componentDidMount(){
         clientApi.getClients()
@@ -44,6 +45,15 @@ class Client extends Component {
                 .catch( e => {
                     console.log(e)
                 });
+    }
+    restartInput(){
+        const client= {
+            nombre: "",
+            cuit: "",
+            direccion: "",
+            condicionIva: "RESPONSABLE_INSCRIPTO"
+        };
+        this.setState({client})
     }
     handleChangeSearch(e){
         this.setState({name: e.target.value})
@@ -73,6 +83,7 @@ class Client extends Component {
             .catch( e => {
                 console.log(e);
             });
+        this.restartInput();
     }
     render() { 
         return ( 

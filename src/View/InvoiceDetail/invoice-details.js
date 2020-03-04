@@ -20,7 +20,7 @@ class InvoiceDetails extends Component {
         }
     }
     componentDidMount(){
-        invoiceApi.getInvoiceById(this.props.match.params.id)
+        invoiceApi.getInvoiceById(this.props.data.match.params.id)
         .then( res => {
             this.setState({invoice: res});
             console.log(this.state.invoice)
