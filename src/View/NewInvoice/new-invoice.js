@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ClientApi from '../../Service/client-api';
 import ProductApi from '../../Service/product-api'
+import BusinessApi from '../../Service/business-api';
 
 import './new-invoice.css'
 
@@ -9,6 +10,7 @@ import ProductInvoice from './Component/product-invoice'
 
 const clientApi = new ClientApi();
 const productApi = new ProductApi();
+const businessApi = new BusinessApi()
 
 class NewInvoice extends Component {
     constructor(props) {
@@ -16,6 +18,7 @@ class NewInvoice extends Component {
         this.state = {
             productsSearch: [],
             productList: [],
+            business: {},
             client: '',
             name: ''
         };
@@ -31,6 +34,10 @@ class NewInvoice extends Component {
             })
             .catch( e => {
                 console.log(e)
+            })
+        businessApi.getBusiness()
+            .then( res => {
+                this.setState({business: res})
             })
     }
     handleOnClickSearch(e){
@@ -74,7 +81,7 @@ class NewInvoice extends Component {
                 {this.state.productsSearch.map(product => 
                         <ProductInvoice data={product} callback={this.addProductToAList} />
                 )}
-                <Invoice client={this.state.client} products={this.state.productList} callbackDelete={this.deleteProductToAList} callbackRedirect={this.props.callback} />
+                <Invoice client={this.state.client} products={this.state.productList} callbackDelete={this.deleteProductToAList} business={this.state.business} callbackRedirect={this.props.callback} />
                 <br/>
                 <br/>
             </div>

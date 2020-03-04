@@ -71,16 +71,16 @@ class Invoice extends Component {
                     <div className="title_data-empresa"><h2>Datos de la Empresa</h2></div>
                     <div className="data-empresa">
                         <div>
-                            <p><span>Nombre: </span></p>
-                            <p><span>Dirección: </span></p>
-                            <p><span>Pais: </span></p>
-                            <p><span>Provincia: </span></p>
+                            <p><span>Nombre: </span>{this.props.business.nombre}</p>
+                            <p><span>Dirección: </span>{this.props.business.direccion}</p>
+                            <p><span>Pais: </span>{this.props.business.pais}</p>
+                            <p><span>Provincia: </span>{this.props.business.provincia}</p>
                         </div>
                         <div>
-                            <p><span>Ciudad: </span></p>
-                            <p><span>Código Postal: </span></p>
-                            <p><span>CUIT: </span></p>
-                            <p><span>Condición Iva: </span></p>
+                            <p><span>Ciudad: </span>{this.props.business.ciudad}</p>
+                            <p><span>Código Postal: </span>{this.props.business.codigo_postal}</p>
+                            <p><span>CUIT: </span>{this.props.business.cuit}</p>
+                            <p><span>Condición Iva: </span>{this.props.business.condicionIva}</p>
                         </div>
                     </div>
                 </div>
