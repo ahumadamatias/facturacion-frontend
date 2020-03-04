@@ -1,0 +1,30 @@
+.create-business h3{
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+    color: #2C2B2B;
+    font-size: 35px;
+    text-align: center;
+    margin: 10px;
+}
+
+.create-business form{
+    position: relative;
+    margin: auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-business form .input_create-business{
+    width: 80%;
+    height: 40px;
+    margin: 10px 10px 10px 0px;
+    padding: 0 10px;
+    font-family: 'Open sans', sans-serif;
+    border: 2px solid #EDEBEB;
+}
+
+.create-business form select{
+    background: white;
+}
