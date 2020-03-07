@@ -49,11 +49,15 @@ class EditProduct extends Component {
                 <form>
                     <h3>Actualizar Producto</h3>
                     <div className="content_input-textarea-button">
+                        <label for="codigo">Código</label>
                         <input type="text" name="codigo" value={this.state.product.codigo} onChange={this.handleChange} placeholder="Ingrese Codigo del Producto" className="input"/>
+                        <label for="nombre">Nombre Producto</label>
                         <input type="text" name="nombre" value={this.state.product.nombre} onChange={this.handleChange} placeholder="Ingrese Nombre Producto" className="input"/>
+                        <label for="precio">Precio</label>
                         <input type="text" name="precio" value={this.state.product.precio} onChange={this.handleChange} placeholder="Ingrese Precio del Producto" className="input"/>
+                        <label for="descripcion">Descripción</label>
                         <textarea  name="descripcion" value={this.state.product.descripcion} onChange={this.handleChange} className="input">Escriba descripcion</textarea>
-                        <button onClick={this.handleUpdateProduct} type="submit" className="btn">Actualizar</button>
+                        <button onClick={this.handleUpdateProduct} type="submit" className="btn-primary">Actualizar</button>
                     </div>
                 </form>
             </div>

@@ -50,15 +50,19 @@ class EditClient extends Component {
                 <br/><br/>
                 <h3>Actualizar Cliente</h3>
                 <form onSubmit={this.handleSubmit}>
+                    <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" value={this.state.client.nombre} onChange={this.handleChange} placeholder="Ingrese su Nombre y Apellido" className="input"/>
+                    <label for="direccion">Dirección</label>
                     <input type="text" name="direccion" value={this.state.client.direccion} onChange={this.handleChange} placeholder="Ingrese su domicilio" className="input"/>
+                    <label for="cuit">Cuit</label>
                     <input type="text" name="cuit" value={this.state.client.cuit} onChange={this.handleChange} placeholder="Ingrese su CUIT" className="input"/>
+                    <label for="condicionIva">Condicion Iva</label>
                     <select name="condicionIva" value={this.state.client.condicionIva} onChange={this.handleChange} className="input">
                         <option value="RESPONSABLE_INSCRIPTO">Responsable Inscripto</option>
                         <option value="MONOTRIBUTISTA">Monotributista</option>
                         <option value="CONSUMIDOR_FINAL">Consumidor Final</option>
                     </select>
-                    <button type="submit" className="btn">Actualizar</button>
+                    <button type="submit" className="btn-primary">Actualizar</button>
                 </form>
             </div>
         );

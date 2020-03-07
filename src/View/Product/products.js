@@ -98,14 +98,14 @@ class Products extends Component {
                         <div className="content_textarea">
                             <textarea  name="descripcion" value={this.state.product.descripcion} onChange={this.handleChange} className="input">Escriba descripcion</textarea>
                         </div>
-                        <button type="submit" className="btn">Crear</button>
+                        <button type="submit" className="btn-primary">Crear</button>
                     </div>
                 </form>
                 <div className="content_products">
                     <h3>Productos</h3>
                     <form>
                         <input type="text" value={this.state.name} onChange={this.handleChangeSearch} placeholder="Ingrese Nombre" className="input"/>
-                        <button onClick={this.handleSearchProduct} className="btn">Buscar</button>
+                        <button onClick={this.handleSearchProduct} className="btn-primary">Buscar</button>
                     </form>
                     {this.state.products.map(product => 
                         <Product data={product} callback={this.updateListProducts} />

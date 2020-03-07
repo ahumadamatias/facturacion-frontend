@@ -75,7 +75,7 @@ class NewInvoice extends Component {
                 <form>
                     <div className="content_input-product">
                         <input type="text" name="codigo" placeholder="Ingrese Nombre del Producto" value={this.state.name} onChange={this.handleChangeSearch}/>
-                        <button type="submit" onClick={this.handleOnClickSearch}>Buscar</button>
+                        <button type="submit" onClick={this.handleOnClickSearch} className="btn-primary">Buscar</button>
                     </div>
                 </form>
                 {this.state.productsSearch.map(product => 

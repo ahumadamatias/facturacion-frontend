@@ -35,9 +35,9 @@ class ClientComponent extends Component {
                 <div className="data"><p>{this.props.data.nombre}</p></div>
                 <div className="data"><p>{this.props.data.direccion}</p></div>
                 <div className="data"><p>{this.props.data.cuit}</p></div>
-                <div><Link to={this.state.routeInvoice}><button className="btn">Nueva Factura</button></Link></div>
-                <div><Link to={this.state.routeEdit}><button className="btn">Editar</button></Link></div>
-                <div><button onClick={this.handleDeleteProduct} className="btn">Borrar</button></div>
+                <div><Link to={this.state.routeInvoice}><button className="btn-primary">Nueva Factura</button></Link></div>
+                <div><Link to={this.state.routeEdit}><button className="btn-secondary">Editar</button></Link></div>
+                <div><button onClick={this.handleDeleteProduct} className="btn-danger">Borrar</button></div>
             </div>
         );
     }

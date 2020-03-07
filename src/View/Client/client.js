@@ -99,14 +99,14 @@ class Client extends Component {
                             <option value="MONOTRIBUTISTA">Monotributista</option>
                             <option value="CONSUMIDOR_FINAL">Consumidor Final</option>
                         </select>
-                        <button type="submit" className="btn">Crear</button>
+                        <button type="submit" className="btn-primary">Crear</button>
                     </div>
                 </form>
                 <div className="content_clients">
                     <h3>Clientes</h3>
                     <form>
                     <input type="text" value={this.state.name} onChange={this.handleChangeSearch} placeholder="Ingrese Nombre" className="input"/>
-                        <button onClick={this.handleSearchClient} className="btn">Buscar</button>
+                        <button onClick={this.handleSearchClient} className="btn-primary">Buscar</button>
                     </form>
                     {this.state.clients.map(client => 
                         <ClientComponent data={client} callback={this.updateListClient} />

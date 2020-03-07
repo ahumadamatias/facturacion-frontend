@@ -22,7 +22,8 @@ class ClientComponent extends Component {
                 <div className="data"><p>Tipo {this.props.invoice.encabezado.letra}</p></div>
                 <div className="data"><p>{this.props.invoice.encabezado.cliente.nombre}</p></div>
                 <div className="data"><p>${this.props.invoice.pie.precioTotal}</p></div>
-                <div><Link to={this.state.routeInvoice}><button className="btn">Ver Detalle</button></Link></div>
+                <div><Link to={this.state.routeInvoice}><button className="btn-primary">Ver Detalle</button></Link></div>
+                <div><button className="btn-danger">Borrar</button></div>
             </div>
         );
     }

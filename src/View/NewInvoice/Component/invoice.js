@@ -66,7 +66,6 @@ class Invoice extends Component {
     render(){
         return(
             <div className="content_invoice">
-                <button onClick={this.handleOnClickCreateInvoice} type="submit" className="btn">Facturar</button>
                 <div className="content_data-empresa">
                     <div className="title_data-empresa"><h2>Datos de la Empresa</h2></div>
                     <div className="data-empresa">
@@ -117,6 +116,9 @@ class Invoice extends Component {
                     <p><span>Total = </span>$120</p>
                     <textarea name="observaciones" value={this.state.factura.pie.observaciones} onChange={this.handleChangeObservation} className="observations_invoice">Observaciones</textarea>
                 </footer>
+                <div className="invoice-foot-button">
+                <button onClick={this.handleOnClickCreateInvoice} type="submit" className="btn-primary">Facturar</button>
+                </div>
             </div>
         )
     }
