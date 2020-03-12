@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import InvoiceApi from '../../../Service/invoice-api';
+import adder from '../../../Utils/adder';
 
 import './invoice.css';
 
@@ -127,7 +128,7 @@ class Invoice extends Component {
                     </table>
                 </div>
                 <footer className="footer_invoice">
-                    <p><span>Total = </span>$120</p>
+                    <p><span>Total = </span>{adder(this.props.products)}</p>
                     <textarea name="observaciones" value={this.state.factura.pie.observaciones} onChange={this.handleChangeObservation} className="observations_invoice" placeholder="Ingrese Observaciones" />
                 </footer>
                 <div className="invoice-foot-button">
