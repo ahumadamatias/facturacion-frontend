@@ -5,6 +5,8 @@ import BusinessApi from '../../Service/business-api';
 import '../CreateBusiness/create-business.css';
 import './business.css';
 
+import Preloader from '../../GlobalComponent/Preloader/preloader';
+
 const businessApi = new BusinessApi();
 
 class Business extends Component {
@@ -22,7 +24,8 @@ class Business extends Component {
                 ciudad: "",
                 condicionIva: "RESPONSABLE_INSCRIPTO"
             },
-            redirect: false
+            redirect: false,
+            loading: true
         }
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleSubmitBusiness = this.handleSubmitBusiness.bind(this);
@@ -32,7 +35,7 @@ class Business extends Component {
     componentDidMount(){
         businessApi.getBusiness()
             .then( res => {
-                this.setState({empresa: res})
+                this.setState({empresa: res, loading: false})
             })
             .catch( e => {
                 console.log(e);
@@ -45,18 +48,21 @@ class Business extends Component {
     }
     handleSubmitBusiness(e){
         e.preventDefault();
+        this.setState({laoding: true})
         businessApi.updateBusiness(this.state.empresa)
             .then( () => {
-                this.setState({redirect: true});
+                this.setState({loading: false, redirect: true});
             })
             .catch( e => {
                 console.log(e);
             })
     }
     handleDeleteBusiness(e){
-        e.preventDefault()
+        e.preventDefault();
+        this.setState({loading: true});
         businessApi.deleteBusiness(this.state.empresa.id)
             .then( () => {
+                this.setState({loading: false});
                 this.props.callback(false);
             })
             .catch( e => {
@@ -68,12 +74,21 @@ class Business extends Component {
             return <Redirect to="/clientes" />
         }
     }
-    render() { 
+    render() {
+        if (this.state.loading) {
+            return (
+                <div>
+                    <br/>
+                    <br/>
+                    <Preloader />
+                </div>
+            )
+        } 
         return (
             <div className="create-business">
                 {this.redirectRender()}
                 <h3>Datos de la Empresa</h3>
-                <form onSubmit={this.handleSubmitBusiness}>
+                <form >
                     <label for="nombre">Nombre o Razón Social</label>
                     <input id="nombre" type="text" name="nombre" value={this.state.empresa.nombre} onChange={this.handleChangeInput} placeholder="Ingrese su Nombre" className="input_create-business input"/>
                     <label for="nombre">Dirección</label>
@@ -95,8 +110,8 @@ class Business extends Component {
                         <option value="CONSUMIDOR_FINAL">Consumidor Final</option>
                     </select>
                     <div className="content_button">
-                        <button type="submit" className="btn-primary">Actualizar</button>
-                        <button onClick={this.handleDeleteBusiness} type="submit" className="btn-danger">Borrar</button>
+                        <button onClick={this.handleSubmitBusiness} type="submit" className="btn-primary"><span className="icon-files-empty icon" />Actualizar</button>
+                        <button onClick={this.handleDeleteBusiness} type="submit" className="btn-danger"><span className="icon-bin icon" />Borrar</button>
                     </div>
                 </form>
                 <br/>

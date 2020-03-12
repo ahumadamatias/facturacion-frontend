@@ -3,6 +3,8 @@ import ClientApi from '../../Service/client-api';
 
 import './edit-client.css';
 
+import Preloader from '../../GlobalComponent/Preloader/preloader';
+
 const clientApi = new ClientApi();
 
 class EditClient extends Component {
@@ -15,7 +17,8 @@ class EditClient extends Component {
                 direccion: "",
                 cuit: "",
                 condicionIva: ""
-            }
+            },
+            loading: true,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +26,7 @@ class EditClient extends Component {
     componentDidMount(){
         clientApi.getClientById(this.state.client.id)
             .then( res => {
-                this.setState({client: res});
+                this.setState({client: res, loading: false});
             })
             .catch( e => {
                 console.log(e);
@@ -36,6 +39,7 @@ class EditClient extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
+        this.setState({loading: true})
         clientApi.updateClient(this.state.client)
             .then( () => {
                 this.props.callback(true);
@@ -44,7 +48,16 @@ class EditClient extends Component {
                 console.log(e);
             })
     }
-    render() { 
+    render() {
+        if (this.state.loading) {
+            return (
+                <div>
+                    <br/>
+                    <br/>
+                    <Preloader />
+                </div>
+            )
+        } 
         return (
             <div className="edit-client">
                 <br/><br/>
@@ -62,7 +75,7 @@ class EditClient extends Component {
                         <option value="MONOTRIBUTISTA">Monotributista</option>
                         <option value="CONSUMIDOR_FINAL">Consumidor Final</option>
                     </select>
-                    <button type="submit" className="btn-primary">Actualizar</button>
+                    <button type="submit" className="btn-primary"><span className="icon-box-remove icon" />Actualizar</button>
                 </form>
             </div>
         );

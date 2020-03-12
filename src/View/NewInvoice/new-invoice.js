@@ -7,6 +7,7 @@ import './new-invoice.css'
 
 import Invoice from './Component/invoice'
 import ProductInvoice from './Component/product-invoice'
+import Preloader from '../../GlobalComponent/Preloader/preloader';
 
 const clientApi = new ClientApi();
 const productApi = new ProductApi();
@@ -20,7 +21,8 @@ class NewInvoice extends Component {
             productList: [],
             business: {},
             client: '',
-            name: ''
+            name: '',
+            loading: true,
         };
         this.handleChangeSearch = this.handleChangeSearch.bind(this);
         this.handleOnClickSearch = this.handleOnClickSearch.bind(this);
@@ -30,7 +32,7 @@ class NewInvoice extends Component {
     componentDidMount(){
         clientApi.getClientById(this.props.data.match.params.id)
             .then( res => {
-                this.setState({client: res})
+                this.setState({client: res, loading: false})
             })
             .catch( e => {
                 console.log(e)
@@ -42,9 +44,14 @@ class NewInvoice extends Component {
     }
     handleOnClickSearch(e){
         e.preventDefault()
+        this.setState({loading: true})
         productApi.getProductByName(this.state.name)
             .then( res => {
-                this.setState({productsSearch: res})
+                if (this.state.name !== "") {
+                    this.setState({productsSearch: res, loading: false})
+                } else if (this.state.name === "") {
+                    this.setState({productsSearch: [], loading: false})
+                } 
             })
             .catch( e => {
                 console.log(e)
@@ -69,18 +76,31 @@ class NewInvoice extends Component {
             };
         };
     }
-    render() { 
+    render() {
+        if (this.state.loading) {
+            return (
+                <div>
+                    <br/>
+                    <br/>
+                    <Preloader />
+                </div>
+            )
+        } 
         return ( 
             <div className="content_new-invoice">
                 <form>
                     <div className="content_input-product">
                         <input type="text" name="codigo" placeholder="Ingrese Nombre del Producto" value={this.state.name} onChange={this.handleChangeSearch}/>
-                        <button type="submit" onClick={this.handleOnClickSearch} className="btn-primary">Buscar</button>
+                        <button type="submit" onClick={this.handleOnClickSearch} className="btn-primary"><span className="icon-search icon" />Buscar</button>
                     </div>
                 </form>
-                {this.state.productsSearch.map(product => 
-                        <ProductInvoice data={product} callback={this.addProductToAList} />
-                )}
+                {
+                    this.state.loading
+                        ? <Preloader />
+                        : this.state.productsSearch.map(product => 
+                                <ProductInvoice data={product} callback={this.addProductToAList} />
+                            )
+                }
                 <Invoice client={this.state.client} products={this.state.productList} callbackDelete={this.deleteProductToAList} business={this.state.business} callbackRedirect={this.props.callback} />
                 <br/>
                 <br/>

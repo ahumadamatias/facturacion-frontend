@@ -1,0 +1,21 @@
+.content_notification{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 105, 217, 0.5);
+    width: 400px;
+    height: 70px;
+    box-shadow: 2px 2px 5px black;
+}
+
+.content_notification h1{
+    font-size: 25px;
+    font-family: 'Anton', sans serif;
+}
+
+.content_notification h1 span{
+    position: relative;
+    margin: auto 4px;
+}

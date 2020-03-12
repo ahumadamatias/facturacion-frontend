@@ -55,7 +55,7 @@ class CreateBusiness extends Component {
                         <option value="MONOTRIBUTISTA">Monotributista</option>
                         <option value="CONSUMIDOR_FINAL">Consumidor Final</option>
                     </select>
-                    <button type="submit" className="btn">Crear</button>
+                    <button type="submit" className="btn-primary"><span className="icon-office icon" />Crear</button>
                 </form>
                 <br/>
             </div>

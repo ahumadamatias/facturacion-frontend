@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import '../../Asset/fonts/fonts/style.css'
 import './menu.css'
 
 function Menu(props){

@@ -4,6 +4,8 @@ import ClientApi from '../../Service/client-api';
 import './client.css';
 
 import ClientComponent from './Component/client-component';
+import Notification from '../../GlobalComponent/Notification/notification';
+import Preloader from '../../GlobalComponent/Preloader/preloader';
 
 const clientApi = new ClientApi();
 
@@ -18,7 +20,9 @@ class Client extends Component {
                 "condicionIva": "RESPONSABLE_INSCRIPTO"
             },
             clients: [],
-            name: ""
+            name: "",
+            notification: false,
+            loading: true,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,11 +30,12 @@ class Client extends Component {
         this.handleSearchClient = this.handleSearchClient.bind(this);
         this.updateListClient = this.updateListClient.bind(this);
         this.restartInput = this.restartInput.bind(this);
+        this.showNotification = this.showNotification.bind(this);
     }
     componentDidMount(){
         clientApi.getClients()
             .then( res => {
-                this.setState({clients: res})
+                this.setState({clients: res, loading: false})
             })
             .catch( e => {
                 console.log(e)
@@ -38,9 +43,10 @@ class Client extends Component {
         this.props.callback(false);
     }
     updateListClient(){
+        this.setState({loading: true})
         clientApi.getClients()
                 .then( res => {
-                    this.setState({clients: res})
+                    this.setState({clients: res, loading: false})
                 })
                 .catch( e => {
                     console.log(e)
@@ -60,10 +66,10 @@ class Client extends Component {
     }
     handleSearchClient(e){
         e.preventDefault()
-        console.log(this.state.name)
+        this.setState({loading: true})
         clientApi.getClientByName(this.state.name)
             .then( res => {
-                this.setState({clients: res})
+                this.setState({clients: res, loading: false})
             })
             .catch( e => {
                 console.log(e)
@@ -78,12 +84,18 @@ class Client extends Component {
         e.preventDefault();
         clientApi.createClient(this.state.client)
             .then( () => {
+                this.setState({notification: true})
                 this.updateListClient();
             })
             .catch( e => {
                 console.log(e);
             });
         this.restartInput();
+        }
+    showNotification(){
+        setTimeout( () => {
+            this.setState({notification:false})
+    }, 5000)
     }
     render() { 
         return ( 
@@ -99,18 +111,28 @@ class Client extends Component {
                             <option value="MONOTRIBUTISTA">Monotributista</option>
                             <option value="CONSUMIDOR_FINAL">Consumidor Final</option>
                         </select>
-                        <button type="submit" className="btn-primary">Crear</button>
+                        <button type="submit" onClick={this.showNotification} className="btn-primary"><span className="icon-user-plus icon" />Crear</button>
                     </div>
                 </form>
+                <div className="container_notification">
+                    {this.state.notification
+                        ? <Notification mensaje="Cliente agregado correctamente" />
+                        : null     
+                    }
+                </div>
                 <div className="content_clients">
                     <h3>Clientes</h3>
                     <form>
                     <input type="text" value={this.state.name} onChange={this.handleChangeSearch} placeholder="Ingrese Nombre" className="input"/>
-                        <button onClick={this.handleSearchClient} className="btn-primary">Buscar</button>
+                        <button onClick={this.handleSearchClient} className="btn-primary"><span className="icon-search icon" />Buscar</button>
                     </form>
-                    {this.state.clients.map(client => 
-                        <ClientComponent data={client} callback={this.updateListClient} />
-                    )}
+                    {
+                        this.state.loading
+                            ? <Preloader />
+                            : this.state.clients.map(client => 
+                                <ClientComponent data={client} callback={this.updateListClient} />
+                            )
+                    }
                 </div>
             </div>
         )

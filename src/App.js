@@ -13,6 +13,10 @@ import Business from '../src/View/Business/business'
 import EditProduct from './View/Product/edit-product';
 import EditClient from './View/Client/edit-client';
 
+import './app.css'
+import './Asset/fonts/fontsTwo/style.css'
+import './Asset/fonts/fonts/style.css'
+
 const businessApi = new BusinessApi();
 
 class App extends React.Component {

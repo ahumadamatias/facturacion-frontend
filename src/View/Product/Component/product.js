@@ -38,8 +38,8 @@ class ClientComponent extends Component {
                     <div><p>{this.props.data.descripcion}</p></div>
                 </div>
                 <div className="content_product-part3">
-                    <div><Link to={this.state.routeEdit}><button className="btn-secondary">Editar</button></Link></div>
-                    <div><button onClick={this.handleDeleteProduct} className="btn-danger">Borrar</button></div>
+                    <div><Link to={this.state.routeEdit}><button className="btn-secondary"><span className="icon-pencil icon" />Editar</button></Link></div>
+                    <div><button onClick={this.handleDeleteProduct} className="btn-danger"><span className="icon-bin icon" />Borrar</button></div>
                 </div>
             </div>
         );

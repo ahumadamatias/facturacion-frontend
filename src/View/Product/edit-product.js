@@ -3,6 +3,8 @@ import ProductApi from '../../Service/product-api';
 
 import './edit-product.css';
 
+import Preloader from '../../GlobalComponent/Preloader/preloader';
+
 const productApi = new ProductApi();
 
 class EditProduct extends Component {
@@ -15,7 +17,8 @@ class EditProduct extends Component {
                 nombre: "",
                 descripcion: "",
                 precio: ""
-            }
+            },
+            loading: true,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleUpdateProduct = this.handleUpdateProduct.bind(this);
@@ -23,7 +26,7 @@ class EditProduct extends Component {
     componentDidMount(){
         productApi.getProductById(this.state.product.id)
             .then( res => {
-                this.setState({product: res})
+                this.setState({product: res, loading: false})
             })
     }
     handleChange(e){
@@ -33,6 +36,7 @@ class EditProduct extends Component {
     }
     handleUpdateProduct(e){
         e.preventDefault();
+        this.setState({loading: true})
         productApi.updateProduct(this.state.product)
             .then( () => {
                 this.props.callback(true)
@@ -41,7 +45,16 @@ class EditProduct extends Component {
                 console.log(e);
             })
     }
-    render() { 
+    render() {
+        if (this.state.loading) {
+            return (
+                <div>
+                    <br/>
+                    <br/>
+                    <Preloader />
+                </div>
+            )
+        }
         return (
             <div className="edit-product">
                 <br/>
@@ -57,7 +70,7 @@ class EditProduct extends Component {
                         <input type="text" name="precio" value={this.state.product.precio} onChange={this.handleChange} placeholder="Ingrese Precio del Producto" className="input"/>
                         <label for="descripcion">Descripción</label>
                         <textarea  name="descripcion" value={this.state.product.descripcion} onChange={this.handleChange} className="input">Escriba descripcion</textarea>
-                        <button onClick={this.handleUpdateProduct} type="submit" className="btn-primary">Actualizar</button>
+                        <button onClick={this.handleUpdateProduct} type="submit" className="btn-primary"><span className="icon-box-remove icon" />Actualizar</button>
                     </div>
                 </form>
             </div>

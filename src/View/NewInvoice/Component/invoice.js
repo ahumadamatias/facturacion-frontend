@@ -3,6 +3,8 @@ import InvoiceApi from '../../../Service/invoice-api';
 
 import './invoice.css';
 
+import Preloader from '../../../GlobalComponent/Preloader/preloader';
+
 const invoiceApi = new InvoiceApi();
 
 class Invoice extends Component {
@@ -21,6 +23,7 @@ class Invoice extends Component {
                     "observaciones": ""
                 }
             },
+            loading: false,
         }
         this.handleOnClickDeleteProduct = this.handleOnClickDeleteProduct.bind(this);
         this.handleOnClickCreateInvoice = this.handleOnClickCreateInvoice.bind(this);
@@ -29,6 +32,7 @@ class Invoice extends Component {
     }
     handleOnClickCreateInvoice(e){
         e.preventDefault();
+        this.setState({loading: true})
         let factura = this.state.factura;
         factura.encabezado.cliente.id = this.props.client.id;
         factura.items = this.generateItems();
@@ -64,6 +68,15 @@ class Invoice extends Component {
         return items
     }
     render(){
+        if (this.state.loading) {
+            return (
+                <div>
+                    <br/>
+                    <br/>
+                    <Preloader />
+                </div>
+            )
+        }
         return(
             <div className="content_invoice">
                 <div className="content_data-empresa">
@@ -88,6 +101,7 @@ class Invoice extends Component {
                     <p><span>Nombre: </span>{this.props.client.nombre}</p>
                     <p><span>Dirección: </span>{this.props.client.direccion}</p>
                     <p><span>CUIT: </span>{this.props.client.cuit}</p>
+                    <p><span>Condicion Iva: </span>{this.props.client.condicionIva}</p>
                 </div>
                 <div className="content_list-product">
                     <table className="list-product">
@@ -114,10 +128,10 @@ class Invoice extends Component {
                 </div>
                 <footer className="footer_invoice">
                     <p><span>Total = </span>$120</p>
-                    <textarea name="observaciones" value={this.state.factura.pie.observaciones} onChange={this.handleChangeObservation} className="observations_invoice">Observaciones</textarea>
+                    <textarea name="observaciones" value={this.state.factura.pie.observaciones} onChange={this.handleChangeObservation} className="observations_invoice" placeholder="Ingrese Observaciones" />
                 </footer>
                 <div className="invoice-foot-button">
-                <button onClick={this.handleOnClickCreateInvoice} type="submit" className="btn-primary">Facturar</button>
+                <button onClick={this.handleOnClickCreateInvoice} type="submit" className="btn-primary"><span className="icon-credit-card icon" />Facturar</button>
                 </div>
             </div>
         )
